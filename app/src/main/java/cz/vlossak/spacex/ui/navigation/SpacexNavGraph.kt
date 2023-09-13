@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import cz.vlossak.spacex.ui.companyscreen.CompanyDetailsScreen
+import cz.vlossak.spacex.ui.launchesscreen.LaunchesScreen
 
 @Composable
 fun SpacexNavGraph(
@@ -18,6 +19,9 @@ fun SpacexNavGraph(
     ) {
         composable(SpacexDestination.SPACEX_HOME_SCREEN) {
             CompanyDetailsScreen()
+        }
+        composable(SpacexDestination.LAUNCHES_SCREEN) {
+            LaunchesScreen()
         }
     }
 

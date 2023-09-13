@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import cz.vlossak.spacex.ui.companyscreen.CompanyDetailsScreen
+import cz.vlossak.spacex.ui.navigation.SpacexNavGraph
 import cz.vlossak.spacex.ui.theme.SpaceXTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,8 +26,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    CompanyDetailsScreen()
-
+                    SpacexNavGraph()
                 }
             }
         }

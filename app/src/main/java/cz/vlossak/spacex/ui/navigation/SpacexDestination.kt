@@ -5,6 +5,7 @@ import cz.vlossak.spacex.R
 object SpacexDestination {
     const val SPACEX_HOME_SCREEN = "home_screen"
     const val LAUNCHES_SCREEN = "launches_screen"
+    const val DETAIL_SCTEEN = "detail_screen"
 }
 
 sealed class NavigationDrawerDestinations(

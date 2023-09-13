@@ -1,7 +1,5 @@
 package cz.vlossak.spacex.mapper
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import cz.vlossak.spacex.extension.convertDate
 import cz.vlossak.spacex.model.LaunchesDetail
 import cz.vlossak.spacex.model.LaunchesDetailDTO
@@ -13,9 +11,9 @@ class LaunchesMapper @Inject constructor() : Mapper<LaunchesDetailDTO, LaunchesD
             date_utc = convertDate(from.date_utc ?: ""),
             flight_number = from.flight_number ?: 0,
             id = from.id ?: "",
-            patchLarge = from.links.patch.large ?: "",
             patchSmall = from.links.patch.small ?: "",
             name = from.name ?: ""
+
         )
 
     fun mapList(from: List<LaunchesDetailDTO>): List<LaunchesDetail> {

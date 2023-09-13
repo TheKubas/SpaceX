@@ -33,10 +33,13 @@ import cz.vlossak.spacex.ui.errorscreen.ErrorScreen
 import cz.vlossak.spacex.ui.loadingScreen.LoadingScreen
 import cz.vlossak.spacex.ui.theme.Typography
 import androidx.compose.foundation.lazy.items
+import androidx.navigation.NavController
 
 @Composable
 fun LaunchesScreen(
-    viewModel: LaunchesScreenViewModel = hiltViewModel()
+    viewModel: LaunchesScreenViewModel = hiltViewModel(),
+    navigateToDetail: (id: String) -> Unit,
+    navController: NavController
 ) {
     val viewState by viewModel.viewState.collectAsState()
     val isLoading = viewState.loading
@@ -46,12 +49,12 @@ fun LaunchesScreen(
     } else if (viewState.error != "") {
         ErrorScreen(errorMessage = viewState.error)
     } else {
-        LaunchesList(viewState)
+        LaunchesList(viewState, navigateToDetail)
     }
 }
 
 @Composable
-private fun LaunchesList(viewState: LaunchesScreenViewState) {
+private fun LaunchesList(viewState: LaunchesScreenViewState, navigateToDetail: (id: String) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -65,21 +68,21 @@ private fun LaunchesList(viewState: LaunchesScreenViewState) {
         }
         LazyColumn() {
             items(viewState.data) { item ->
-                CustomItem(item)
+                CustomItem(item, navigateToDetail)
             }
         }
     }
 }
 
 @Composable
-private fun CustomItem(launches: LaunchesDetail) {
+private fun CustomItem(launches: LaunchesDetail, navigateToDetail: (id: String) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(100.dp)
             .padding(0.dp)
             .clickable {
-
+                navigateToDetail(launches.id)
             },
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically

@@ -2,27 +2,35 @@ package cz.vlossak.spacex.model
 
 import java.time.LocalDateTime
 
-data class LaunchesDetail(
-    val date_utc: LocalDateTime,
-    val flight_number: Int,
-    val id: String,
-    val patchLarge: String,
-    val patchSmall: String,
-    val name: String,
+data class LaunchDetail (
+    val date_utc: LocalDateTime = LocalDateTime.now(),
+    val details: String = "",
+    val flight_number: Int = 0,
+    val id: String = "",
+    val launchpad: String = "",
+    val name: String = "",
+    val rocket: String = "",
+    val success: Boolean? = null,
+    val large: String = "",
+    val small: String = ""
 )
-data class LaunchesDetailDTO(
+
+data class LaunchDetailDTO(
     val date_utc: String?,
+    val details: String?,
     val flight_number: Int?,
     val id: String?,
+    val launchpad: String?,
     val links: LaunchLinksDTO,
     val name: String?,
+    val rocket: String?,
+    val success: Boolean?,
 )
-
 data class LaunchLinksDTO(
-    val patch: PatchDTO,
+    val patch: LaunchPatchDTO,
 )
 
-data class PatchDTO(
+data class LaunchPatchDTO(
     val large: String?,
     val small: String?
 )

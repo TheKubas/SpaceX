@@ -8,9 +8,9 @@ import androidx.navigation.compose.rememberNavController
 import cz.vlossak.spacex.ui.companyscreen.CompanyDetailsScreen
 
 @Composable
-fun SpacexNavGraph() {
-
-    val navController: NavHostController = rememberNavController()
+fun SpacexNavGraph(
+    navController: NavHostController
+) {
 
     NavHost(
         navController = navController,

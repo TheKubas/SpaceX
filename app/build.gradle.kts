@@ -82,11 +82,14 @@ dependencies {
     implementation ("com.squareup.moshi:moshi-kotlin:1.13.0")
     kapt("com.squareup.moshi:moshi-kotlin-codegen:1.13.0")
 
-    //navigation
+    //Navigation
     implementation("androidx.navigation:navigation-compose:2.7.2")
 
-    //coil
+    //Coil
     implementation ("io.coil-kt:coil-compose:2.0.0-rc01")
+
+    //DataStore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     implementation("androidx.compose.material3:material3")
 }

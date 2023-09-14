@@ -40,7 +40,7 @@ fun CompanyDetailsScreen(
 }
 
 @Composable
-private fun CompanyDetailContent(viewState: HomeScreenViewState) {
+private fun CompanyDetailContent(viewState: CompanyDetailViewState) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -60,7 +60,7 @@ private fun CompanyDetailContent(viewState: HomeScreenViewState) {
 }
 
 @Composable
-private fun LeadersInfo(viewState: HomeScreenViewState) {
+private fun LeadersInfo(viewState: CompanyDetailViewState) {
     Row {
         Column(horizontalAlignment = Alignment.Start) {
             Text(text = "CEO", style = Typography.bodyLarge)

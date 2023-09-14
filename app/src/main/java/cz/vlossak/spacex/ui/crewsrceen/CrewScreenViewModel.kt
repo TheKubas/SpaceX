@@ -3,6 +3,7 @@ package cz.vlossak.spacex.ui.crewsrceen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cz.vlossak.spacex.extension.fold
+import cz.vlossak.spacex.model.Crew
 import cz.vlossak.spacex.network.Repository
 import cz.vlossak.spacex.ui.launchesscreen.LaunchesScreenViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,6 +19,8 @@ class CrewScreenViewModel @Inject constructor(
 ) : ViewModel() {
     private val _viewState = MutableStateFlow(CrewScreenViewState())
     val viewState = _viewState.asStateFlow()
+
+    var defaultSortedData: List<Crew> = emptyList()
 
     init {
         viewModelScope.launch {
@@ -37,6 +40,28 @@ class CrewScreenViewModel @Inject constructor(
                 }
 
             })
+        }
+    }
+
+    fun sortByName() {
+        val sortedData = _viewState.value.data.sortedBy { it.name }
+        defaultSortedData = _viewState.value.data
+        _viewState.update {
+            CrewScreenViewState(
+                data = sortedData,
+                loading = false
+            )
+        }
+    }
+
+    fun sortByDefault() {
+        if (defaultSortedData.isNotEmpty()) {
+            _viewState.update {
+                CrewScreenViewState(
+                    data = defaultSortedData,
+                    loading = false
+                )
+            }
         }
     }
 }

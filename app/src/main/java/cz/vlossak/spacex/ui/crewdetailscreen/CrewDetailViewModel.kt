@@ -4,8 +4,11 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cz.vlossak.spacex.extension.fold
+import cz.vlossak.spacex.model.Crew
 import cz.vlossak.spacex.network.Repository
+import cz.vlossak.spacex.ui.crewsrceen.CrewScreenViewState
 import cz.vlossak.spacex.ui.launchdetailscreen.LaunchDetailScreenViewState
+import cz.vlossak.spacex.ui.launchesscreen.LaunchesScreenViewState
 import cz.vlossak.spacex.ui.navigation.SpacexNavArguments
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

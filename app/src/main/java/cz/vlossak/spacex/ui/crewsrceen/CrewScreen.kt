@@ -59,7 +59,8 @@ fun CrewScreen(
     } else {
         CrewList(
             viewState = viewState,
-            navigateToDetail = navigateToDetail
+            navigateToDetail = navigateToDetail,
+            viewModel = viewModel
         )
     }
 }
@@ -67,7 +68,8 @@ fun CrewScreen(
 @Composable
 private fun CrewList(
     navigateToDetail: (id: String) -> Unit,
-    viewState: CrewScreenViewState
+    viewState: CrewScreenViewState,
+    viewModel: CrewScreenViewModel
 ) {
     Column(
         modifier = Modifier
@@ -82,10 +84,7 @@ private fun CrewList(
             modifier = Modifier.padding(end = 10.dp, top = 10.dp)
         ) {
             Spacer(modifier = Modifier.weight(1f))
-        }
-        Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.End) {
-            Row(modifier = Modifier.width(150.dp), horizontalArrangement = Arrangement.Center) {
-            }
+            MyDropdownMenu(viewModel)
         }
         LazyColumn {
             items(viewState.data) { item ->
@@ -119,7 +118,7 @@ private fun CustomItem(crew: Crew, navigateToDetail: (id: String) -> Unit) {
         ) {
             Column(modifier = Modifier.padding(5.dp)) {
                 AsyncImage(
-                    contentScale = ContentScale.Fit,
+                    contentScale = ContentScale.Crop,
                     model = crew.image,
                     contentDescription = "image",
                     error = painterResource(id = R.drawable.spacex)
@@ -139,4 +138,44 @@ private fun CustomItem(crew: Crew, navigateToDetail: (id: String) -> Unit) {
         }
     }
     Divider()
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MyDropdownMenu(viewModel: CrewScreenViewModel) {
+    var expanded by remember { mutableStateOf(false) }
+
+    ExposedDropdownMenuBox(expanded = expanded, onExpandedChange = { expanded = it })
+    {
+        Row(
+            modifier = Modifier
+                .menuAnchor()
+                .clickable { },
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                painterResource(id = R.drawable.ic_sort),
+                contentDescription = null,
+                modifier = Modifier.size(30.dp)
+            )
+            Text(text = "SORT BY")
+        }
+        ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+            DropdownMenuItem(text = {
+                Text(text = "Name")
+            }, onClick = {
+                expanded = false
+                viewModel.sortByName()
+            })
+            DropdownMenuItem(text = {
+                Text(text = "Default")
+            }, onClick = {
+                expanded = false
+                viewModel.sortByDefault()
+            })
+
+        }
+    }
+
 }

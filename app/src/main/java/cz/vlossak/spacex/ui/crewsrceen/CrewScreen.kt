@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -116,16 +117,12 @@ private fun CustomItem(crew: Crew, navigateToDetail: (id: String) -> Unit) {
                 .aspectRatio(1f)
                 .padding(15.dp)
         ) {
-            if (crew.image == "") {
-                Image(
-                    painterResource(id = R.drawable.spacex),
-                    contentDescription = "image_placeholder",
-                )
-            } else {
+            Column(modifier = Modifier.padding(5.dp)) {
                 AsyncImage(
                     contentScale = ContentScale.Fit,
                     model = crew.image,
                     contentDescription = "image",
+                    error = painterResource(id = R.drawable.spacex)
                 )
             }
         }
@@ -142,44 +139,4 @@ private fun CustomItem(crew: Crew, navigateToDetail: (id: String) -> Unit) {
         }
     }
     Divider()
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun MyDropdownMenu(viewModel: LaunchesScreenViewModel) {
-    var expanded by remember { mutableStateOf(false) }
-
-    ExposedDropdownMenuBox(expanded = expanded, onExpandedChange = { expanded = it })
-    {
-        Row(
-            modifier = Modifier
-                .menuAnchor()
-                .clickable { },
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                painterResource(id = R.drawable.ic_sort),
-                contentDescription = null,
-                modifier = Modifier.size(30.dp)
-            )
-            Text(text = "SORT BY")
-        }
-        ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-            DropdownMenuItem(text = {
-                Text(text = "Date")
-            }, onClick = {
-                expanded = false
-                viewModel.sortByDate()
-            })
-            DropdownMenuItem(text = {
-                Text(text = "Name")
-            }, onClick = {
-                expanded = false
-                viewModel.sortByName()
-            })
-
-        }
-    }
-
 }

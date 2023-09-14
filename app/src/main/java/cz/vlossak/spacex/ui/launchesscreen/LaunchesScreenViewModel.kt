@@ -38,5 +38,22 @@ class LaunchesScreenViewModel @Inject constructor(
             })
         }
     }
-
+    fun sortByName() {
+        val sortedData = _viewState.value.data.sortedBy { it.name }
+        _viewState.update {
+            LaunchesScreenViewState(
+                data = sortedData,
+                loading = false
+            )
+        }
+    }
+    fun sortByDate() {
+        val sortedData = _viewState.value.data.sortedBy { it.date_utc }
+        _viewState.update {
+            LaunchesScreenViewState(
+                data = sortedData,
+                loading = false
+            )
+        }
+    }
 }

@@ -4,4 +4,8 @@
     <string name="Crew">Crew</string>
     <string name="Agency">Agency</string>
     <string name="Status">Status</string>
+    <string name="Flight_number">Flight number</string>
+    <string name="Launchpad">Launchpad</string>
+    <string name="Rocket">Rocket</string>
+    <string name="Details">Details</string>
 </resources>

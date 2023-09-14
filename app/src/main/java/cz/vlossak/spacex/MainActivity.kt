@@ -50,7 +50,8 @@ class MainActivity : ComponentActivity() {
                 val items =
                     listOf(
                         NavigationDrawerDestinations.SpaceX,
-                        NavigationDrawerDestinations.Launches
+                        NavigationDrawerDestinations.Launches,
+                        NavigationDrawerDestinations.Crew
                     )
                 val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
                 val scope = rememberCoroutineScope()

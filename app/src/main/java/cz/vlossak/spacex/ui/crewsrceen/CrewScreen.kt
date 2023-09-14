@@ -1,4 +1,4 @@
-package cz.vlossak.spacex.ui.launchesscreen
+package cz.vlossak.spacex.ui.crewsrceen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -14,38 +14,38 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Divider
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import cz.vlossak.spacex.R
-import cz.vlossak.spacex.extension.formatLocalDateTime
-import cz.vlossak.spacex.model.LaunchesDetail
+import cz.vlossak.spacex.model.Crew
 import cz.vlossak.spacex.ui.errorscreen.ErrorScreen
+import cz.vlossak.spacex.ui.launchesscreen.LaunchesScreenViewModel
 import cz.vlossak.spacex.ui.loadingScreen.LoadingScreen
 import cz.vlossak.spacex.ui.theme.Typography
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.Icon
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.res.stringResource
 
 @Composable
-fun LaunchesScreen(
-    viewModel: LaunchesScreenViewModel = hiltViewModel(),
+fun CrewScreen(
+    viewModel: CrewScreenViewModel = hiltViewModel(),
     navigateToDetail: (id: String) -> Unit
 ) {
     val viewState by viewModel.viewState.collectAsState()
@@ -57,18 +57,16 @@ fun LaunchesScreen(
         ErrorScreen(errorMessage = viewState.error)
     } else {
         CrewList(
-            viewModel,
-            viewState,
-            navigateToDetail
+            viewState = viewState,
+            navigateToDetail = navigateToDetail
         )
     }
 }
 
 @Composable
 private fun CrewList(
-    viewModel: LaunchesScreenViewModel,
-    viewState: LaunchesScreenViewState,
-    navigateToDetail: (id: String) -> Unit
+    navigateToDetail: (id: String) -> Unit,
+    viewState: CrewScreenViewState
 ) {
     Column(
         modifier = Modifier
@@ -77,13 +75,12 @@ private fun CrewList(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = stringResource(id = R.string.Launches), style = Typography.headlineMedium)
+        Text(text = stringResource(id = R.string.Crew), style = Typography.headlineMedium)
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier.padding(end = 10.dp, top = 10.dp)
         ) {
             Spacer(modifier = Modifier.weight(1f))
-            MyDropdownMenu(viewModel)
         }
         Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.End) {
             Row(modifier = Modifier.width(150.dp), horizontalArrangement = Arrangement.Center) {
@@ -91,21 +88,24 @@ private fun CrewList(
         }
         LazyColumn {
             items(viewState.data) { item ->
-                CustomItem(item, navigateToDetail)
+                CustomItem(
+                    item,
+                    navigateToDetail
+                )
             }
         }
     }
 }
 
 @Composable
-private fun CustomItem(launches: LaunchesDetail, navigateToDetail: (id: String) -> Unit) {
+private fun CustomItem(crew: Crew, navigateToDetail: (id: String) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(100.dp)
             .padding(0.dp)
             .clickable {
-                navigateToDetail(launches.id)
+                navigateToDetail(crew.id)
             },
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
@@ -116,38 +116,29 @@ private fun CustomItem(launches: LaunchesDetail, navigateToDetail: (id: String) 
                 .aspectRatio(1f)
                 .padding(15.dp)
         ) {
-            if (launches.patchSmall == "") {
+            if (crew.image == "") {
                 Image(
                     painterResource(id = R.drawable.spacex),
                     contentDescription = "image_placeholder",
                 )
             } else {
                 AsyncImage(
-                    contentScale = ContentScale.FillBounds,
-                    model = launches.patchSmall,
-                    contentDescription = "image"
+                    contentScale = ContentScale.Fit,
+                    model = crew.image,
+                    contentDescription = "image",
                 )
             }
-
-
         }
         Spacer(modifier = Modifier.width(5.dp))
         Column(modifier = Modifier.weight(2f)) {
             Text(
-                text = launches.name,
+                text = crew.name,
                 style = Typography.bodyLarge
             )
             Text(
-                text = formatLocalDateTime(dateTime = launches.date_utc),
+                text = crew.agency,
                 style = Typography.bodySmall
             )
-        }
-        Spacer(modifier = Modifier.width(5.dp))
-        Column(
-            modifier = Modifier.weight(1f),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(text = "#${launches.flight_number}")
         }
     }
     Divider()

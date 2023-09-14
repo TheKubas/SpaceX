@@ -1,4 +1,4 @@
-package cz.vlossak.spacex.ui.detailscreen
+package cz.vlossak.spacex.ui.launchdetailscreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,8 +22,8 @@ import cz.vlossak.spacex.ui.loadingScreen.LoadingScreen
 import cz.vlossak.spacex.ui.theme.Typography
 
 @Composable
-fun DetailScreen(
-    viewModel: DetailScreenViewModel = hiltViewModel()
+fun LaunchDetailScreen(
+    viewModel: LaunchDetailScreenViewModel = hiltViewModel()
 ) {
     val viewState by viewModel.viewState.collectAsState()
     val isLoading = viewState.loading
@@ -33,12 +33,12 @@ fun DetailScreen(
     } else if (viewState.error != "") {
         ErrorScreen(errorMessage = viewState.error)
     } else {
-        DetailContent(viewState = viewState)
+        LaunchDetailContent(viewState = viewState)
     }
 }
 
 @Composable
-private fun DetailContent(viewState: DetailScreenViewState) {
+private fun LaunchDetailContent(viewState: LaunchDetailScreenViewState) {
     Column(
         modifier = Modifier
             .fillMaxSize()

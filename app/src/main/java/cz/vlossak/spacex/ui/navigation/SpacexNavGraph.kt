@@ -5,10 +5,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import cz.vlossak.spacex.ui.companyscreen.CompanyDetailsScreen
-import cz.vlossak.spacex.ui.detailscreen.DetailScreen
+import cz.vlossak.spacex.ui.crewdetailscreen.CrewDetailScreen
+import cz.vlossak.spacex.ui.crewsrceen.CrewScreen
+import cz.vlossak.spacex.ui.launchdetailscreen.LaunchDetailScreen
 import cz.vlossak.spacex.ui.launchesscreen.LaunchesScreen
 
 @Composable
@@ -25,17 +26,31 @@ fun SpacexNavGraph(
         }
         composable(SpacexDestination.LAUNCHES_SCREEN) {
             LaunchesScreen(navigateToDetail = { launchId ->
-                navController.navigate("${SpacexDestination.DETAIL_SCTEEN}/${launchId}")
-            }, navController = navController)
+                navController.navigate("${SpacexDestination.LAUNCH_DETAIL_SCREEN}/${launchId}")
+            })
         }
         composable(
-            route = "${SpacexDestination.DETAIL_SCTEEN}/{${SpacexNavArguments.LAUNCH_ID}}",
+            route = "${SpacexDestination.LAUNCH_DETAIL_SCREEN}/{${SpacexNavArguments.LAUNCH_ID}}",
             arguments = listOf(
                 navArgument(SpacexNavArguments.LAUNCH_ID) {
                     type = NavType.StringType
                 }
             )) {
-            DetailScreen()
+            LaunchDetailScreen()
+        }
+        composable(SpacexDestination.CREW_SCREEN) {
+            CrewScreen(navigateToDetail = { personId ->
+                navController.navigate("${SpacexDestination.CREW_DETAIL_SCREEN}/${personId}")
+            })
+        }
+        composable(
+            route = "${SpacexDestination.CREW_DETAIL_SCREEN}/{${SpacexNavArguments.PERSON_ID}}",
+            arguments = listOf(
+                navArgument(SpacexNavArguments.PERSON_ID) {
+                    type = NavType.StringType
+                }
+            )) {
+            CrewDetailScreen()
         }
     }
 

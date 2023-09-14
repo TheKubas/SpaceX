@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">SpaceX</string>
     <string name="Launches">Launches</string>
+    <string name="Crew">Crew</string>
+    <string name="Agency">Agency</string>
+    <string name="Status">Status</string>
 </resources>

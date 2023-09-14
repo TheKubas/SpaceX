@@ -1,4 +1,4 @@
-package cz.vlossak.spacex.ui.detailscreen
+package cz.vlossak.spacex.ui.launchdetailscreen
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -14,12 +14,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailScreenViewModel @Inject constructor(
+class LaunchDetailScreenViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     repository: Repository
 ) : ViewModel() {
 
-    private val _viewState = MutableStateFlow(DetailScreenViewState())
+    private val _viewState = MutableStateFlow(LaunchDetailScreenViewState())
     val viewState = _viewState.asStateFlow()
 
     init {
@@ -28,14 +28,14 @@ class DetailScreenViewModel @Inject constructor(
 
             repository.getLaunchDetail(launchId).fold({ error ->
                 _viewState.update {
-                    DetailScreenViewState(
+                    LaunchDetailScreenViewState(
                         error = error,
                         loading = false
                     )
                 }
             }, { details ->
                 _viewState.update {
-                    DetailScreenViewState(
+                    LaunchDetailScreenViewState(
                         data = details,
                         loading = false
                     )

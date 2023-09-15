@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import cz.vlossak.spacex.extension.fold
 import cz.vlossak.spacex.model.Crew
 import cz.vlossak.spacex.network.Repository
-import cz.vlossak.spacex.ui.launchesscreen.LaunchesScreenViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,7 +19,7 @@ class CrewScreenViewModel @Inject constructor(
     private val _viewState = MutableStateFlow(CrewScreenViewState())
     val viewState = _viewState.asStateFlow()
 
-    var defaultSortedData: List<Crew> = emptyList()
+    private var defaultSortedData: List<Crew> = emptyList()
 
     init {
         viewModelScope.launch {

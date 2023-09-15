@@ -1,7 +1,6 @@
 package cz.vlossak.spacex.ui.crewdetailscreen
 
 import cz.vlossak.spacex.model.Crew
-import cz.vlossak.spacex.model.LaunchDetail
 
 data class CrewDetailViewState (
     val data: Crew = Crew(),

@@ -1,10 +1,7 @@
 package cz.vlossak.spacex.mapper
 
-import cz.vlossak.spacex.extension.convertDate
 import cz.vlossak.spacex.model.Crew
 import cz.vlossak.spacex.model.CrewDTO
-import cz.vlossak.spacex.model.LaunchesDetail
-import cz.vlossak.spacex.model.LaunchesDetailDTO
 import javax.inject.Inject
 
 class CrewMapper @Inject constructor() : Mapper<CrewDTO, Crew> {

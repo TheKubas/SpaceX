@@ -29,7 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import cz.vlossak.spacex.R
 import cz.vlossak.spacex.extension.formatLocalDateTime
-import cz.vlossak.spacex.model.LaunchesDetail
+import cz.vlossak.spacex.model.LaunchDetail
 import cz.vlossak.spacex.ui.errorscreen.ErrorScreen
 import cz.vlossak.spacex.ui.loadingScreen.LoadingScreen
 import cz.vlossak.spacex.ui.theme.Typography
@@ -98,7 +98,7 @@ private fun CrewList(
 }
 
 @Composable
-private fun CustomItem(launches: LaunchesDetail, navigateToDetail: (id: String) -> Unit) {
+private fun CustomItem(launches: LaunchDetail, navigateToDetail: (id: String) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -116,7 +116,7 @@ private fun CustomItem(launches: LaunchesDetail, navigateToDetail: (id: String) 
                 .aspectRatio(1f)
                 .padding(15.dp)
         ) {
-            if (launches.patchSmall == "") {
+            if (launches.small == "") {
                 Image(
                     painterResource(id = R.drawable.spacex),
                     contentDescription = "image_placeholder",
@@ -124,7 +124,7 @@ private fun CustomItem(launches: LaunchesDetail, navigateToDetail: (id: String) 
             } else {
                 AsyncImage(
                     contentScale = ContentScale.FillBounds,
-                    model = launches.patchSmall,
+                    model = launches.small,
                     contentDescription = "image"
                 )
             }
@@ -138,7 +138,7 @@ private fun CustomItem(launches: LaunchesDetail, navigateToDetail: (id: String) 
                 style = Typography.bodyLarge
             )
             Text(
-                text = formatLocalDateTime(dateTime = launches.date_utc),
+                text = formatLocalDateTime(dateTime = launches.dateUtc),
                 style = Typography.bodySmall
             )
         }
@@ -147,7 +147,7 @@ private fun CustomItem(launches: LaunchesDetail, navigateToDetail: (id: String) 
             modifier = Modifier.weight(1f),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "#${launches.flight_number}")
+            Text(text = "#${launches.flightNumber}")
         }
     }
     Divider()

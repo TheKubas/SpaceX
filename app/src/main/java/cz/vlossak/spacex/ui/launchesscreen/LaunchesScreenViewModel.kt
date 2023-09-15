@@ -48,7 +48,7 @@ class LaunchesScreenViewModel @Inject constructor(
         }
     }
     fun sortByDate() {
-        val sortedData = _viewState.value.data.sortedBy { it.date_utc }
+        val sortedData = _viewState.value.data.sortedBy { it.dateUtc }
         _viewState.update {
             LaunchesScreenViewState(
                 data = sortedData,

@@ -1,22 +1,27 @@
 package cz.vlossak.spacex.mapper
 
 import cz.vlossak.spacex.extension.convertDate
-import cz.vlossak.spacex.model.LaunchesDetail
-import cz.vlossak.spacex.model.LaunchesDetailDTO
+import cz.vlossak.spacex.model.LaunchDetail
+import cz.vlossak.spacex.model.LaunchDetailDTO
 import javax.inject.Inject
 
-class LaunchesMapper @Inject constructor() : Mapper<LaunchesDetailDTO, LaunchesDetail> {
-    override fun map(from: LaunchesDetailDTO) =
-        LaunchesDetail(
-            date_utc = convertDate(from.date_utc ?: ""),
-            flight_number = from.flight_number ?: 0,
+class LaunchesMapper @Inject constructor() : Mapper<LaunchDetailDTO, LaunchDetail> {
+    override fun map(from: LaunchDetailDTO) =
+        LaunchDetail(
+            dateUtc = convertDate(from.dateUtc ?: ""),
+            details = from.details ?: "",
+            flightNumber = from.flightNumber ?: 0,
             id = from.id ?: "",
-            patchSmall = from.links.patch.small ?: "",
-            name = from.name ?: ""
+            launchpad = from.launchpad ?: "",
+            name = from.name ?: "",
+            rocket = from.rocket ?: "",
+            success = from.success,
+            large = from.links.patch.large ?: "",
+            small = from.links.patch.small ?: ""
 
         )
 
-    fun mapList(from: List<LaunchesDetailDTO>): List<LaunchesDetail> {
+    fun mapList(from: List<LaunchDetailDTO>): List<LaunchDetail> {
         return from.map { map(it) }
     }
 }

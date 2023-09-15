@@ -1,11 +1,12 @@
 package cz.vlossak.spacex.model
 
+import com.squareup.moshi.Json
 import java.time.LocalDateTime
 
-data class LaunchDetail (
-    val date_utc: LocalDateTime = LocalDateTime.now(),
+data class LaunchDetail(
+    val dateUtc: LocalDateTime = LocalDateTime.now(),
     val details: String = "",
-    val flight_number: Int = 0,
+    val flightNumber: Int = 0,
     val id: String = "",
     val launchpad: String = "",
     val name: String = "",
@@ -16,16 +17,26 @@ data class LaunchDetail (
 )
 
 data class LaunchDetailDTO(
-    val date_utc: String?,
+    @Json(name = "date_utc")
+    val dateUtc: String?,
+    @Json(name = "details")
     val details: String?,
-    val flight_number: Int?,
+    @Json(name = "flight_number")
+    val flightNumber: Int?,
+    @Json(name = "id")
     val id: String?,
+    @Json(name = "launchpad")
     val launchpad: String?,
+    @Json(name = "links")
     val links: LaunchLinksDTO,
+    @Json(name = "name")
     val name: String?,
+    @Json(name = "rocket")
     val rocket: String?,
+    @Json(name = "success")
     val success: Boolean?,
 )
+
 data class LaunchLinksDTO(
     val patch: LaunchPatchDTO,
 )

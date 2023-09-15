@@ -3,12 +3,10 @@ package cz.vlossak.spacex.network
 import cz.vlossak.spacex.extension.Either
 import cz.vlossak.spacex.mapper.CompanyDetailsMapper
 import cz.vlossak.spacex.mapper.CrewMapper
-import cz.vlossak.spacex.mapper.LaunchDetailMapper
 import cz.vlossak.spacex.mapper.LaunchesMapper
 import cz.vlossak.spacex.model.CompanyDetails
 import cz.vlossak.spacex.model.Crew
 import cz.vlossak.spacex.model.LaunchDetail
-import cz.vlossak.spacex.model.LaunchesDetail
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -17,11 +15,11 @@ class Repository @Inject constructor(
     private val api: Api,
     private val companyDetailsMapper: CompanyDetailsMapper,
     private val launchesMapper: LaunchesMapper,
-    private val launchDetailMapper: LaunchDetailMapper,
     private val crewMapper: CrewMapper
 ) {
 
     private var crew : List<Crew> = emptyList()
+    private var launches : List<LaunchDetail> = emptyList()
 
 
     suspend fun getCompanyDetails(): Either<String, CompanyDetails> {
@@ -33,19 +31,24 @@ class Repository @Inject constructor(
         }
     }
 
-    suspend fun getLaunches(): Either<String, List<LaunchesDetail>> {
+    suspend fun getLaunches(): Either<String, List<LaunchDetail>> {
         return try {
-            val Launches = api.getLaunches()
-            Either.Value(launchesMapper.mapList(Launches))
+            val launchesFromApi = api.getLaunches()
+            launches = launchesMapper.mapList(launchesFromApi)
+            Either.Value(launchesMapper.mapList(launchesFromApi))
         } catch (excaption: Throwable) {
             Either.Error(excaption.localizedMessage ?: "Network error")
         }
     }
 
-    suspend fun getLaunchDetail(launchId: String): Either<String, LaunchDetail> {
+    fun getLaunchDetail(launchId: String): Either<String, LaunchDetail> {
         return try {
-            val launchDetail = api.getLaunchDetail(launchId)
-            Either.Value(launchDetailMapper.map(launchDetail))
+            val launch = launches.find { it.id == launchId }
+            if (launch != null) {
+                Either.Value(launch)
+            } else {
+                Either.Error("Launch not found")
+            }
         } catch (exception: Throwable) {
             Either.Error(exception.localizedMessage ?: "Network error")
         }

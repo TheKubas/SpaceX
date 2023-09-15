@@ -3,7 +3,6 @@ package cz.vlossak.spacex.network
 import cz.vlossak.spacex.model.CompanyDetailsDTO
 import cz.vlossak.spacex.model.CrewDTO
 import cz.vlossak.spacex.model.LaunchDetailDTO
-import cz.vlossak.spacex.model.LaunchesDetailDTO
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -12,7 +11,7 @@ interface Api {
     suspend fun getCompanyDetails(): CompanyDetailsDTO
 
     @GET("v5/launches/past")
-    suspend fun getLaunches(): List<LaunchesDetailDTO>
+    suspend fun getLaunches(): List<LaunchDetailDTO>
 
     @GET("v5/launches/{launchId}")
     suspend fun getLaunchDetail(@Path("launchId") capsuleId: String): LaunchDetailDTO

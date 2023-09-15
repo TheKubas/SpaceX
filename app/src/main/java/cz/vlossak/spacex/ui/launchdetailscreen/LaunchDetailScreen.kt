@@ -61,7 +61,7 @@ private fun LaunchDetailContent(viewState: LaunchDetailScreenViewState) {
                 Text(text = viewState.data.name, style = Typography.headlineMedium)
             }
             DetailBlock(
-                text = viewState.data.flight_number.toString(),
+                text = viewState.data.flightNumber.toString(),
                 string = R.string.Flight_number
             )
             DetailBlock(

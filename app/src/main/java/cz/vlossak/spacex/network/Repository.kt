@@ -26,8 +26,8 @@ class Repository @Inject constructor(
         return try {
             val companyDetails = api.getCompanyDetails()
             Either.Value(companyDetailsMapper.map(companyDetails))
-        } catch (excaption: Throwable) {
-            Either.Error(excaption.localizedMessage ?: "Network error")
+        } catch (exception: Throwable) {
+            Either.Error(exception.localizedMessage ?: "Network error")
         }
     }
 
@@ -36,8 +36,8 @@ class Repository @Inject constructor(
             val launchesFromApi = api.getLaunches()
             launches = launchesMapper.mapList(launchesFromApi)
             Either.Value(launchesMapper.mapList(launchesFromApi))
-        } catch (excaption: Throwable) {
-            Either.Error(excaption.localizedMessage ?: "Network error")
+        } catch (exception: Throwable) {
+            Either.Error(exception.localizedMessage ?: "Network error")
         }
     }
 

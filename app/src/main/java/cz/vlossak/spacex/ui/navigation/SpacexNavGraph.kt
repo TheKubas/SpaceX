@@ -1,5 +1,6 @@
 package cz.vlossak.spacex.ui.navigation
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -22,6 +23,8 @@ fun SpacexNavGraph(
         startDestination = SpacexDestination.SPACEX_HOME_SCREEN
     ) {
         composable(SpacexDestination.SPACEX_HOME_SCREEN) {
+            BackHandler(true) {
+            }
             CompanyDetailsScreen()
         }
         composable(SpacexDestination.LAUNCHES_SCREEN) {

@@ -4,11 +4,9 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-fun convertDate(date: String) : LocalDateTime {
-    val dateString = date
+fun convertDate(date: String): LocalDateTime {
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-    val dateTime: LocalDateTime = LocalDateTime.parse(dateString, formatter)
-    return dateTime
+    return LocalDateTime.parse(date, formatter)
 }
 
 fun formatLocalDateTime(dateTime: LocalDateTime): String {

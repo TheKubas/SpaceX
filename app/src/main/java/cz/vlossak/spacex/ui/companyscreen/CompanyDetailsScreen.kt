@@ -7,13 +7,15 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import cz.vlossak.spacex.R
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import cz.vlossak.spacex.ui.errorscreen.ErrorScreen
@@ -49,8 +51,23 @@ private fun CompanyDetailContent(viewState: CompanyDetailViewState) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = viewState.data.name, style = Typography.displayLarge)
-        LeadersInfo(viewState)
-        Spacer(modifier = Modifier.height(20.dp))
+        DetailBlock(
+            text = viewState.data.ceo,
+            string = R.string.CEO
+        )
+        DetailBlock(
+            text = viewState.data.coo,
+            string = R.string.COO
+        )
+        DetailBlock(
+            text = viewState.data.cto,
+            string = R.string.CTO
+        )
+        DetailBlock(
+            text = viewState.data.cto_propulsion,
+            string = R.string.Propulsion_CTO
+        )
+        Spacer(modifier = Modifier.height(10.dp))
         Row {
             Text(text = viewState.data.summary, style = Typography.bodyMedium)
         }
@@ -60,20 +77,11 @@ private fun CompanyDetailContent(viewState: CompanyDetailViewState) {
 }
 
 @Composable
-private fun LeadersInfo(viewState: CompanyDetailViewState) {
-    Row {
-        Column(horizontalAlignment = Alignment.Start) {
-            Text(text = "CEO", style = Typography.bodyLarge)
-            Text(text = "COO", style = Typography.bodyLarge)
-            Text(text = "CTO", style = Typography.bodyLarge)
-            Text(text = "Propulsion CTO", style = Typography.bodyLarge)
-        }
-        Spacer(modifier = Modifier.width(40.dp))
-        Column(horizontalAlignment = Alignment.End) {
-            Text(text = viewState.data.ceo, style = Typography.bodyLarge)
-            Text(text = viewState.data.coo, style = Typography.bodyLarge)
-            Text(text = viewState.data.cto, style = Typography.bodyLarge)
-            Text(text = viewState.data.cto_propulsion, style = Typography.bodyLarge)
-        }
+private fun DetailBlock(text: String, string: Int) {
+    Column(modifier = Modifier.padding(5.dp)) {
+        Divider()
+        Spacer(modifier = Modifier.height(5.dp))
+        Text(text = stringResource(id = string), style = Typography.bodySmall)
+        Text(text = text, style = Typography.bodyMedium)
     }
 }

@@ -7,5 +7,9 @@
     <string name="Flight_number">Flight number</string>
     <string name="Launchpad">Launchpad</string>
     <string name="Rocket">Rocket</string>
+    <string name="CEO">CEO</string>
+    <string name="COO">COO</string>
+    <string name="CTO">CTO</string>
+    <string name="Propulsion_CTO">Propulsion CTO</string>
     <string name="Details">Details</string>
 </resources>

@@ -64,7 +64,7 @@ private fun CompanyDetailContent(viewState: CompanyDetailViewState) {
             string = R.string.CTO
         )
         DetailBlock(
-            text = viewState.data.cto_propulsion,
+            text = viewState.data.ctoPropulsion,
             string = R.string.Propulsion_CTO
         )
         Spacer(modifier = Modifier.height(10.dp))

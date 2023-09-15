@@ -10,7 +10,7 @@ class CompanyDetailsMapper @Inject constructor() : Mapper<CompanyDetailsDTO, Com
             ceo = from.ceo ?: "",
             coo = from.coo ?: "",
             cto = from.cto ?: "",
-            cto_propulsion = from.cto_propulsion ?: "",
+            ctoPropulsion = from.ctoPropulsion ?: "",
             name = from.name ?: "",
             summary = from.summary ?: "",
             website = from.links.website ?: ""

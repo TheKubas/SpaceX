@@ -41,7 +41,7 @@ class DataStore @Inject constructor(
             ceo = ceo,
             coo = coo,
             cto = cto,
-            cto_propulsion = propulsionCto,
+            ctoPropulsion = propulsionCto,
             summary = summary,
             website = website
         )
@@ -53,7 +53,7 @@ class DataStore @Inject constructor(
             it[CEO] = companyDetails.ceo
             it[COO] = companyDetails.coo
             it[CTO] = companyDetails.cto
-            it[PROPULSION_CTO] = companyDetails.cto_propulsion
+            it[PROPULSION_CTO] = companyDetails.ctoPropulsion
             it[SUMMARY] = companyDetails.summary
             it[WEBSITE] = companyDetails.website
 

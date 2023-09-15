@@ -20,6 +20,4 @@ interface Api {
     @GET("v4/crew")
     suspend fun getCrew(): List<CrewDTO>
 
-    @GET("v4/crew/{personId}")
-    suspend fun getPerson(@Path("personId") personId: String): CrewDTO
 }

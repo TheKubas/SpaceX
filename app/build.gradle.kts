@@ -92,4 +92,13 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     implementation("androidx.compose.material3:material3")
+
+    //Mockk
+    testImplementation("io.mockk:mockk:1.13.7")
+
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }

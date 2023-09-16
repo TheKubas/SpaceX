@@ -18,7 +18,7 @@ class Repository @Inject constructor(
     private val crewMapper: CrewMapper
 ) {
 
-    private var crew : List<Crew> = emptyList()
+    var crew : List<Crew> = emptyList()
     private var launches : List<LaunchDetail> = emptyList()
 
 
